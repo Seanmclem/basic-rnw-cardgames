@@ -1,6 +1,14 @@
+export const makeHandleDeck = () => {
+    const deck = makeDeck()
+    console.log('deck', deck)
+
+    const splitDecks = splitDeck(deck)
+    console.log('splitDecks', splitDecks)
+}
+
 export const makeDeck = () => {
     let finalDeck: card[] = []
-    console.log('making desck')
+
     suits.forEach(suit => {
         const allRanksSuited: card[]
             = ranks.map(rank => (
@@ -11,7 +19,22 @@ export const makeDeck = () => {
             ))
         finalDeck.push(...allRanksSuited)
     })
-    console.log('finalDeck', finalDeck)
+
+    return finalDeck
+}
+
+const splitDeck = (deck: card[]): card[][] => {
+    const wiggleRoom = Math.floor(Math.random() * 6)
+    const median = 24 + wiggleRoom;
+
+    const deck1 = deck.slice(0, median);
+    const deck2 = deck.slice(median, deck.length);
+
+    return [deck1, deck2]
+}
+
+const shuffleDeck = (deck: card[]) => {
+    let splitDecks = splitDeck(deck)
 }
 
 interface card {

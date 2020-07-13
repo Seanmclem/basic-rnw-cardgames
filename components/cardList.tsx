@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Button, Text } from 'react-native';
 import { CardItem } from './cardItem';
 import { ButtonGenerate } from './buttonGenerate';
-import { makeDeck } from '../libs/cardUtilities';
+import { makeHandleDeck } from '../libs/cardUtilities';
 
 export const CardList = () => {
     const [deck, setDeck] = useState<any[]>([])
 
-    const handleGenerateDeck = makeDeck
+    const handleGenerateDeck = makeHandleDeck
 
     return (
         <View style={styles.container}>
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        border: 'solid black 1px'
+        // border: 'solid black 1px'
     },
 });
