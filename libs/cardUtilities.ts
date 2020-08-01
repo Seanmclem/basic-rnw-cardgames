@@ -1,9 +1,43 @@
 export const makeHandleDeck = () => {
     const deck = makeDeck()
-    console.log('deck', deck)
+    const shuffled = shuffleLots(10, deck)
+    console.log(shuffled)
+    // const shuffled1 = doShuffle(deck)
+    // const shuffled2 = doShuffle(shuffled1)
+    // const shuffled3 = doShuffle(shuffled2)
+    debugger
+}
 
+const shuffleLots = (shuffleTimes: number, deck: card[]) => {
+    // let shuffledCount = 0
+    // let shuffledDeck = deck
+
+    // while(shuffledCount < shuffleTimes) {
+    //     debugger;
+    //     const newDeck = [...shuffledDeck]
+    //     shuffledDeck = doShuffle(newDeck)
+    //     shuffledCount = shuffledCount + 1
+    // }
+
+    //return shuffledDeck
+
+    const one = doShuffle(deck)
+    const two = doShuffle(one)
+    const three = doShuffle(two)
+    const four = doShuffle(three)
+    const five = doShuffle(four)
+    const six = doShuffle(five)
+    const seven = doShuffle(six)
+    const eight = doShuffle(seven)
+    const nine = doShuffle(eight)
+    const ten = doShuffle(nine)
+    return ten
+}
+
+const doShuffle = (deck: card[]) => {
     const splitDecks = splitDeck(deck)
-    console.log('splitDecks', splitDecks)
+    const deckIntervals = getDeckIntervals(splitDecks[0])
+    return mergeDecks(deckIntervals, splitDecks)
 }
 
 export const makeDeck = () => {
@@ -24,7 +58,7 @@ export const makeDeck = () => {
 }
 
 const splitDeck = (deck: card[]): card[][] => {
-    const wiggleRoom = Math.floor(Math.random() * 6)
+    const wiggleRoom = Math.ceil(Math.random() * 6)
     const median = 24 + wiggleRoom;
 
     const deck1 = deck.slice(0, median);
@@ -33,8 +67,39 @@ const splitDeck = (deck: card[]): card[][] => {
     return [deck1, deck2]
 }
 
-const shuffleDeck = (deck: card[]) => {
-    let splitDecks = splitDeck(deck)
+const getDeckIntervals = (deck: card[]) => {
+    let randomIntervals: number[] = [];
+
+    while(randomIntervals.length != deck.length) {
+        const randomNumber = Math.floor(Math.random() * 3) || 1
+
+        randomIntervals.push(randomNumber)
+    }
+    return randomIntervals
+}
+
+const mergeDecks = (intervals: number[], decks: card[][]): card[] => {
+    let deck_1 = [...decks[0]]
+    let deck_2 = [...decks[1]]
+    let deckPosition = 0
+
+    intervals.forEach(interval => {
+        deckPosition = deckPosition + interval
+
+        if(deckPosition <= deck_2.length ) {
+            const pieceToMove = deck_1.slice(0, interval)
+            deck_1.splice(0, interval)
+    
+            deck_2.splice(deckPosition, 0, ...pieceToMove)
+            deckPosition = deckPosition + 1
+        } else {
+            //debugger;
+        }
+
+        //debugger;
+    })
+
+    return deck_2
 }
 
 interface card {
